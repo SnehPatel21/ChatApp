@@ -1,42 +1,48 @@
-// src/features/chat/components/ChatHeader.js
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
-const ChatHeader = () => {
+const ChatHeader = ({ tripName }) => {
   return (
-    <View style={styles.header}>
-      <View style={styles.headerLeft}>
-        <TouchableOpacity>
-          <Ionicons name="arrow-back" size={24} color="black" />
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.leftSection}>
+          <TouchableOpacity style={styles.backButton}>
+            <Feather name="chevron-left" size={24} color="black" />
+          </TouchableOpacity>
+          <Text style={styles.title}>{tripName}</Text>
+        </View>
+        
+        <TouchableOpacity style={styles.editButton}>
+          <Feather name="edit" size={20} color="black" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Trip 1</Text>
       </View>
-      <TouchableOpacity>
-        <Ionicons name="ellipsis-vertical" size={24} color="black" />
-      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#FAF9F4',
+  },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 16,
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    justifyContent: 'space-between',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
   },
-  headerLeft: {
+  leftSection: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 16,
   },
-  headerTitle: {
+  title: {
     fontSize: 18,
     fontWeight: '600',
+  },
+  editButton: {
+    padding: 4,
   },
 });
 

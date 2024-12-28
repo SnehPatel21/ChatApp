@@ -1,43 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useChat } from '../context/ChatContext';
 import ChatHeader from '../components/ChatHeader';
 import TripInfo from '../components/TripInfo';
 import MessageList from '../components/MessageList';
 import ChatInput from '../components/ChatInput';
 
-const ChatScreen = () => {
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    fetchMessages();
-  }, []);
-
-  const fetchMessages = async () => {
-    try {
-      const response = await fetch('https://qa.corider.in/assignment/chat?page=0');
-      const data = await response.json();
-      setMessages(data.chats);
-    } catch (error) {
-      console.error('Error fetching messages:', error);
-    }
-  };
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <ChatHeader />
-      <TripInfo />
-      <MessageList messages={messages} />
-      <ChatInput />
-    </SafeAreaView>
-  );
-};
+export default function ChatScreen() {
+    const { chatData, fetchChatData } = useChat();
+  
+    useEffect(() => {
+      fetchChatData();
+    }, []);
+  
+    return (
+      <SafeAreaView style={styles.container}>
+        <ChatHeader tripName={chatData?.name} />
+        <TripInfo 
+          from={chatData?.from} 
+          to={chatData?.to}
+          chatData={chatData}
+        />
+        <MessageList messages={chatData?.chats || []} />
+        <ChatInput />
+      </SafeAreaView>
+    );
+  }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#FAF9F4',
   },
 });
-
-export default ChatScreen;
