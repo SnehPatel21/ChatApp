@@ -13,7 +13,11 @@ A React Native chat application built with Expo, featuring real-time messaging, 
 
 ## Video
 
-[Coming Soon...]
+
+
+https://github.com/user-attachments/assets/c2478393-fc18-4dd8-b8fc-16781413ed81
+
+
 
 ## Tech Stack
 
