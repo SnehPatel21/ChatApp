@@ -2,18 +2,18 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const Message = ({ message }) => {
+const formatTime = (timeString) => {
+  const date = new Date(timeString);
+  return date.toLocaleTimeString('en-US', { 
+    hour: 'numeric', 
+    minute: '2-digit',
+    hour12: true 
+  });
+};
+
+const Message = React.memo(function Message({ message }) {
   const isSelf = message.sender.self;
   
-  const formatTime = (timeString) => {
-    const date = new Date(timeString);
-    return date.toLocaleTimeString('en-US', { 
-      hour: 'numeric', 
-      minute: '2-digit',
-      hour12: true 
-    });
-  };
-
   return (
     <View style={[
       styles.container,
@@ -53,7 +53,9 @@ const Message = ({ message }) => {
       </View>
     </View>
   );
-};
+}, (prevProps, nextProps) => {
+  return prevProps.message.id === nextProps.message.id;
+});
 
 const styles = StyleSheet.create({
   container: {
